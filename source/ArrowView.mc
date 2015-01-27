@@ -14,7 +14,10 @@ class ArrowView extends Ui.WatchFace {
     //! Load your resources here
     function onLayout(dc) {
         setLayout(Rez.Layouts.WatchFace(dc));
-        arrowShape = new ArrowShape();
+        var screenWidth = dc.getWidth();
+		var screenHeight = dc.getHeight();
+		
+        arrowShape = new ArrowShape(screenWidth / 2, screenHeight / 2);
     }
 
     //! Restore the state of the app and prepare the view to be shown
