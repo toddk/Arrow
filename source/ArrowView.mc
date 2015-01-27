@@ -7,9 +7,9 @@ using Toybox.Math as Math;
 
 class ArrowView extends Ui.WatchFace {
 
-	var posnInfo;
-	var bearing;
-	var arrowShape;
+	hidden var posnInfo;
+	hidden var bearing;
+	hidden var arrowShape;
 
     //! Load your resources here
     function onLayout(dc) {
@@ -17,7 +17,7 @@ class ArrowView extends Ui.WatchFace {
         var screenWidth = dc.getWidth();
 		var screenHeight = dc.getHeight();
 		
-        arrowShape = new ArrowShape(screenWidth / 2, screenHeight / 2);
+        arrowShape = new ArrowShape(screenWidth / 2, screenHeight / 2, screenWidth, screenHeight);
     }
 
     //! Restore the state of the app and prepare the view to be shown
