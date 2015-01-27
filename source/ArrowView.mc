@@ -9,10 +9,12 @@ class ArrowView extends Ui.WatchFace {
 
 	var posnInfo;
 	var bearing;
+	var arrowShape;
 
     //! Load your resources here
     function onLayout(dc) {
         setLayout(Rez.Layouts.WatchFace(dc));
+        arrowShape = new ArrowShape();
     }
 
     //! Restore the state of the app and prepare the view to be shown
@@ -22,45 +24,7 @@ class ArrowView extends Ui.WatchFace {
 
     //! Update the view
     function onUpdate(dc) {
-        // Get and show the current time
-        var clockTime = Sys.getClockTime();
-        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
-		var screenWidth = dc.getWidth();
-		var screenHeight = dc.getHeight();
-		
-		//Sys.println("Width: " + screenWidth + " Height: " + screenHeight);
-		
-		var arrowWidth = 20;
-		var shaftHeight = 80;
-		var rectX = (screenWidth / 2) - (arrowWidth / 2);
-		var rectY = (screenHeight / 2) - (shaftHeight / 2);
-		
-		//Sys.println("rectX: " + rectX + " rectY: " + rectY);
-		
-		var arrowLeftX1 = rectX - 20;
-		var arrowLeftY1 = rectY;
-		var arrowLeftX2 = screenWidth / 2;
-		var arrowLeftY2 = rectY - 20;
-		var arrowLeftX3 = rectX + arrowWidth + 20;
-
-        dc.clear();
-        dc.setColor(Gfx.COLOR_BLUE, Gfx.COLOR_BLACK);
-		
-		var arrowHead = new[4];
-        arrowHead[0] = [arrowLeftX1, arrowLeftY1];
-        arrowHead[1] = [arrowLeftX2, arrowLeftY2];
-        arrowHead[2] = [arrowLeftX3, arrowLeftY1];
-        arrowHead[3] = [arrowLeftX1, arrowLeftY1];
-        
-        //dc.drawLine(arrowLeftX1, arrowLeftY1, arrowLeftX2, arrowLeftY2);
-        //dc.drawLine(arrowLeftX2, arrowLeftY2, arrowLeftX3, arrowLeftY1);
-        //dc.drawLine(arrowLeftX1, arrowLeftY1, arrowLeftX3, arrowLeftY1);
-        
-        dc.fillPolygon(arrowHead);
-        dc.fillRectangle(rectX, rectY, arrowWidth, shaftHeight);
-        
-        
-        //dc.drawRectangle(45,50,20,50);
+        arrowShape.onDraw(dc);
     }
 
     //! The user has just looked at their watch. Timers and animations may be started here.
@@ -94,6 +58,6 @@ class ArrowView extends Ui.WatchFace {
 		//Sys.println("Lat " + posnInfo.position.toDegrees()[0].toString() + " lon " + posnInfo.position.toDegrees()[1].toString());
 		//Sys.println("Heading: " + posnInfo.heading);	
 		//Sys.println("Speed: " + posnInfo.speed);
-		Ui.requestUpdate();
+		Ui.requestUpdate(); 
 	}
 }
